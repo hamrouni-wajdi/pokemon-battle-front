@@ -16,7 +16,8 @@ export class ApiService {
   public getPokemons():Observable<Pokemon[]>{
    return this.http.get<any>(`${this.baseUrl}/pokemons`)
     }
-   public testPokedex(){
-     return this.http.get<any>(this.pokedexUrl)
-   }
+   
+    public getBattleTeam(firstTeamName:string,secondTeamName:string):Observable<any>{
+      return this.http.post(`${this.baseUrl}/team/getPokemonsInBattle`,{firstTeamName,secondTeamName})
+    }
 }

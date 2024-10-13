@@ -27,24 +27,22 @@ export class PokemonCardComponent {
       life: [this.pokemon.life],
     });
   }
-  public onCancel(){
+  public onCancel(event:Event){
+    event.preventDefault(); 
     this.displayForm=false;
     this.editButtonText = "Edit";
   }
-  public onEdit(){
+  public onEdit(event:Event){
+    event.preventDefault(); 
     this.displayForm=!this.displayForm
     if(this.displayForm){
       this.editButtonText = "Save";
       return;
     }
     this.editButtonText = "Edit";
-
-    console.log('Input 1:', this.parsetype(this.myForm.value.type));
-    console.log('Input 2:', this.myForm.value.power);
-    console.log('Input 3:', this.myForm.value.life);
     console.log({...this.myForm.value})
     this.apiService.updatePokemon(this.pokemon.id,{...this.myForm.value}).subscribe((data)=>{
-      console.log(data)
+      location.reload()
     })
    }  
 

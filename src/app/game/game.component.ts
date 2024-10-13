@@ -16,9 +16,9 @@ import { Observable } from 'rxjs';
 export class GameComponent {
   firstTeam: Team = { name: '', pokemons: [] };
   secondTeam: Team = { name: '', pokemons: [] };
-  round:number=1;
-  firstTeamPokemon_factor: any
-  secondTeamPokemon_factor:any
+  round: number = 1;
+  firstTeamPokemon_factor: any;
+  secondTeamPokemon_factor: any;
   firstTeamPokemon: Pokemon = {
     name: '',
     image: '',
@@ -74,32 +74,48 @@ export class GameComponent {
       console.log('cannot select pokemons');
     }
   }
-  
-public async getFactor(type1:number, type2:number){
-  try{
-     return this.apiService.getFactor(type1,type2)
+
+  public async getFactor(type1: number, type2: number) {
+    try {
+      return this.apiService.getFactor(type1, type2);
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
-  catch(error){
-    console.log(error)
-    return null
+  private updateCurrentPokemonFirstTeam(){
+    this.firstTeam.pokemons.shift();
+    this.firstTeamPokemon=this.firstTeam.pokemons[0];
+  } 
+  private updateCurrentPokemonSecondTeam(){
+    this.secondTeam.pokemons.shift();
+    this.secondTeamPokemon=this.secondTeam.pokemons[0];
+  } 
+
+  public async fight() {
+    await this.apiService
+      .getFactor(this.firstTeamPokemon.type, this.secondTeamPokemon.type)
+      .subscribe((factor) => {
+        this.firstTeamPokemon_factor = factor;
+        console.log(this.firstTeamPokemon_factor);
+        let lifeafterFight =
+          this.firstTeamPokemon.life -
+          this.secondTeamPokemon.power * this.firstTeamPokemon_factor;
+        lifeafterFight >= 0
+          ? (this.firstTeamPokemon.life = lifeafterFight)
+          : this.updateCurrentPokemonFirstTeam()
+      });
+    await this.apiService
+      .getFactor(this.secondTeamPokemon.type, this.firstTeamPokemon.type)
+      .subscribe((factor) => {
+        this.secondTeamPokemon_factor = factor;
+
+        let lifeAfterFight =
+          this.secondTeamPokemon.life -
+          this.firstTeamPokemon.power * this.secondTeamPokemon_factor;
+        lifeAfterFight >= 0
+          ? (this.secondTeamPokemon.life = lifeAfterFight)
+          : this.updateCurrentPokemonSecondTeam()
+      });
   }
-}
-
-
-public async fight(){
-  await this.apiService.getFactor(this.firstTeamPokemon.type,this.secondTeamPokemon.type).subscribe((factor)=>{
-    this.firstTeamPokemon_factor = factor;
-    console.log( this.firstTeamPokemon_factor);
-    let lifeafterFight = this.firstTeamPokemon.life - this.secondTeamPokemon.power * this.firstTeamPokemon_factor;
-      lifeafterFight > 0 ? this.firstTeamPokemon.life = lifeafterFight:this.firstTeamPokemon.life = 0
-  })
-  await this.apiService.getFactor(this.secondTeamPokemon.type,this.firstTeamPokemon.type).subscribe((factor)=>{
-    this.secondTeamPokemon_factor = factor;
-    
-    let lifeAfterFight = this.secondTeamPokemon.life -  this.firstTeamPokemon.power * this.secondTeamPokemon_factor;
-    lifeAfterFight > 0 ? this.secondTeamPokemon.life = lifeAfterFight: this.secondTeamPokemon.life = 0
-  });
-
-}
-
 }

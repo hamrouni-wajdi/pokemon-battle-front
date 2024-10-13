@@ -1,7 +1,7 @@
 <app-pokemon-list [pokemons]="firstTeam.pokemons" [teamName]="firstTeam.name"></app-pokemon-list>
 <div class="battlefield">
     <app-pokemon [pokemon]="firstTeamPokemon"></app-pokemon>
-    <button type="button" class="btn btn-red fight-btn" (click)="fight()">Fight</button>
+    <button type="button" class="btn btn-red fight-btn" (click)="fight()">Round {{round +' '}}Fight</button>
     <app-pokemon [pokemon]="secondTeamPokemon"></app-pokemon>
 </div>
 <app-pokemon-list [pokemons]="secondTeam.pokemons" [teamName]="secondTeam.name"></app-pokemon-list>

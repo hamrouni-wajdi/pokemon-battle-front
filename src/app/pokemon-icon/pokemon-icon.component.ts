@@ -11,5 +11,4 @@ export class PokemonIconComponent {
 
   @Input()
     pokemon!:Pokemon
-
 }

@@ -1,1 +1,30 @@
-<p>team works!</p>
+<div class="create-team-btn-container">
+    <button type="button" (click)="onCreateTeam()" class="btn btn-primary btn-lg btn-block">Create Team</button>
+</div>
+<div class="team-list-container" *ngIf="displayTeams" >
+<div class="container" *ngFor="let team of teams" >
+    <div class="card" style="width: 18rem;" >
+        <div class="card-header">
+         Team Name: {{team.team_name}}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"> Total Power: {{team.total_power}}</li>
+        </ul>
+      </div>
+</div>
+</div>
+
+<div class="allPokemons-icons-container input-group" *ngIf="displayPokemons">
+    <div class="team-name-container"> 
+        <div class="input-group input-group-md mb-3 team-name">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">team Name</span>
+            </div>
+            <input formControlName="teamName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        </div>
+    </div>
+  <div class="pokemon-icon-container" (click)="onSelection($event)" *ngFor="let pokemon of pokemons">
+    <app-pokemon-icon [pokemon]="pokemon"></app-pokemon-icon>
+  </div>  
+</div>
+

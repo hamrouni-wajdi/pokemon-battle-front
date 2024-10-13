@@ -31,4 +31,7 @@ export class ApiService {
       // .set('id', pokemonId)
       return this.http.post(`${this.baseUrl}/pokemons/${pokemonId}`,data)
     }
+    public getTeamsOrderedByPower(){
+      return this.http.get<any>(`${this.baseUrl}/teams`)
+    }
 }

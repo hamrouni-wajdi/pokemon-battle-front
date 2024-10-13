@@ -1,20 +1,31 @@
 import { Component, Input } from '@angular/core';
 import { Pokemon } from '../types/Pokemon';
 import { CommonModule } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-pokemon-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './pokemon-card.component.html',
   styleUrl: './pokemon-card.component.scss'
 })
 export class PokemonCardComponent {
+  constructor(private fb: FormBuilder) {} 
+  myForm!: FormGroup;
   displayForm:boolean=false;
   editButtonText:string='Edit';
   @Input()
-  pokemon!:Pokemon
+  pokemon!:Pokemon;
 
+  ngOnInit() {
+    this.myForm = this.fb.group({
+      type: [''],
+      power: [''],
+      life: [''],
+    });
+  }
   public onEdit(){
     this.displayForm=!this.displayForm
     if(this.displayForm){
@@ -22,6 +33,10 @@ export class PokemonCardComponent {
       return;
     }
     this.editButtonText = "Edit";
+
+    console.log('Input 1:', this.myForm.value.type);
+    console.log('Input 2:', this.myForm.value.power);
+    console.log('Input 3:', this.myForm.value.life);
    }  
 
   public parsetype(input: string | number): string | number | undefined {

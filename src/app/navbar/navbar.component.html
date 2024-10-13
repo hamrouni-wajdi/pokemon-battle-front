@@ -1,15 +1,14 @@
-<ul ngbNav #nav="ngbNav" class="nav-tabs">
-    <li ngbNavItem>
-      <button ngbNavLink>Pokemons</button>
+<ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Active</a>
     </li>
-    <li ngbNavItem>
-      <button ngbNavLink>Favorites</button>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
     </li>
-    <li ngbNavItem>
-        <button ngbNavLink>Teams</button>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
     </li>
-    <li ngbNavItem>
-        <button ngbNavLink>Battle</button>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
     </li>
   </ul>
-  <div [ngbNavOutlet]="nav"></div>

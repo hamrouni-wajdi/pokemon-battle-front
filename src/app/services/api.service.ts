@@ -13,7 +13,7 @@ export class ApiService {
   pokedexUrl = "https://pokemondb.net/pokedex/all";
   
   
-  public getPokemons():Observable<Pokemon[]>{
+  public getPokemons():Observable<any>{
    return this.http.get<any>(`${this.baseUrl}/pokemons`)
     }
    

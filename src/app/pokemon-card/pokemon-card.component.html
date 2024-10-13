@@ -8,9 +8,9 @@
         <span class="power">Power:{{pokemon.power}} </span>
        </span>     
       <a href="#" class="btn btn-primary">Add to favorite</a>
-      <a href="#" class="btn btn-primary" (click)="onEdit($event)">{{editButtonText}}</a>
+      <a href="#" class="btn btn-primary" (click)="toggleForm()">{{editButtonText}}</a>
     </div>
-    <form [formGroup]="myForm" class="input-group" *ngIf="displayForm">
+    <form [formGroup]="myForm" class="input-group" *ngIf="displayForm" (ngSubmit)="onEdit($event)">
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text"  id="inputGroup-sizing-sm">Type</span>
@@ -21,14 +21,14 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-sm">Power</span>
             </div>
-            <input formControlName="power" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <input formControlName="power" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-sm">Life</span>
             </div>
-            <input formControlName="life" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <input formControlName="life" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
         </div>
-        <a href="#" class="btn btn-primary" style="margin: auto;" (click)="onCancel($event)">Cancel</a>
+        <button class="btn btn-primary"  type="submit" [disabled]="myForm.invalid" style="margin: auto;">Submit</button>
     </form>
   </div>

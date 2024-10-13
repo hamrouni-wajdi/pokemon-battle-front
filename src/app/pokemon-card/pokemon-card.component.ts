@@ -23,23 +23,29 @@ export class PokemonCardComponent {
   ngOnInit() {
     this.myForm = this.fb.group({
       type: [this.parsetype(this.pokemon.type)],
-      power: [this.pokemon.power],
-      life: [this.pokemon.life],
+      power: [this.pokemon.power,  [
+        Validators.required, 
+        Validators.min(10),   
+        Validators.max(100)   
+      ]],
+      life: [this.pokemon.life,  [
+        Validators.required, 
+        Validators.min(50),   
+        Validators.max(100)   
+      ]],
     });
   }
-  public onCancel(event:Event){
-    event.preventDefault(); 
-    this.displayForm=false;
-    this.editButtonText = "Edit";
-  }
-  public onEdit(event:Event){
-    event.preventDefault(); 
+ 
+  public toggleForm(){
     this.displayForm=!this.displayForm
     if(this.displayForm){
-      this.editButtonText = "Save";
+      this.editButtonText = "Cancel";
       return;
     }
     this.editButtonText = "Edit";
+  }
+  public onEdit(event:Event){
+   this.toggleForm()
     console.log({...this.myForm.value})
     this.apiService.updatePokemon(this.pokemon.id,{...this.myForm.value}).subscribe((data)=>{
       location.reload()

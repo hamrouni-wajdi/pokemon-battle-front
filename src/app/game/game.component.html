@@ -1,39 +1,49 @@
 <div class="team-selection">
-    <div class="input-group input-group-md mb-3 team-name">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">First Team</span>
-        </div>
-        <input
-          [(ngModel)]="firstTeamName"
-          type="text"
-          class="form-control"
-          aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Second team</span>
-          </div>
-        <input
-          [(ngModel)]="secondTeamName"
-          type="text"
-          class="form-control"
-          aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-        <button
-          type="button"
-          (click)="confirmTeams()"
-          class="btn btn-primary submit-team"
-        >
-          Submit
-        </button>
-      </div>
+  <div class="input-group input-group-md mb-3 team-name">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">First Team</span>
+    </div>
+    <input
+      [(ngModel)]="firstTeamName"
+      type="text"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-sm"
+    />
+    <button
+      type="button"
+      (click)="confirmTeams()"
+      class="btn btn-primary submit-team"
+    >
+      Confirm
+    </button>
+    <input
+      [(ngModel)]="secondTeamName"
+      type="text"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-sm"
+    />
+    <div class="input-group-append">
+      <span class="input-group-text" id="inputGroup-sizing-sm"
+        >Second team</span
+      >
+    </div>
+  </div>
 </div>
 
-<app-pokemon-list [pokemons]="firstTeam.pokemons" [teamName]="firstTeam.name"></app-pokemon-list>
+<app-pokemon-list
+  [pokemons]="firstTeam.pokemons"
+  [teamName]="firstTeam.name"
+></app-pokemon-list>
 <div class="battlefield">
-    <app-pokemon [pokemon]="firstTeamPokemon"></app-pokemon>
-    <button type="button" class="alert alert-danger fight-btn" (click)="fight()">Fight</button>
-    <app-pokemon [pokemon]="secondTeamPokemon"></app-pokemon>
+  <app-pokemon [pokemon]="firstTeamPokemon"></app-pokemon>
+  <button type="button" class="alert alert-danger fight-btn" (click)="fight()">
+    Fight
+  </button>
+  <app-pokemon [pokemon]="secondTeamPokemon"></app-pokemon>
 </div>
-<app-pokemon-list [pokemons]="secondTeam.pokemons" [teamName]="secondTeam.name"></app-pokemon-list>
+<app-pokemon-list
+  [pokemons]="secondTeam.pokemons"
+  [teamName]="secondTeam.name"
+></app-pokemon-list>

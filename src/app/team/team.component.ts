@@ -80,6 +80,9 @@ export class TeamComponent {
     };
     this.apiService.createTeam(body).subscribe((data) => {
       console.log(data);
+      if(data){
+        location.reload();
+      }
     });
   }
 }

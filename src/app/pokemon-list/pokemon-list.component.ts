@@ -13,5 +13,7 @@ import { PokemonIconComponent } from "../pokemon-icon/pokemon-icon.component";
 
 export class PokemonListComponent {
   @Input()
-  pokemons!:Pokemon[]
+  pokemons:Pokemon[]=[]
+  @Input()
+  teamName:string = "";
 }

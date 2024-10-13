@@ -18,9 +18,10 @@
     <div class="team-name-container"> 
         <div class="input-group input-group-md mb-3 team-name">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-sm">team Name</span>
+              <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
             </div>
-            <input formControlName="teamName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <input [(ngModel)]="teamName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <button type="button"  (click)="submitTeam()" class="btn btn-primary submit-team">Submit</button>
         </div>
     </div>
   <div class="pokemon-icon-container" (click)="onSelection($event)" *ngFor="let pokemon of pokemons">

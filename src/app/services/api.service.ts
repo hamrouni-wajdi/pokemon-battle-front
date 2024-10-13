@@ -34,4 +34,7 @@ export class ApiService {
     public getTeamsOrderedByPower(){
       return this.http.get<any>(`${this.baseUrl}/teams`)
     }
+    public createTeam(body:object){
+      return this.http.post(`${this.baseUrl}/teams/populate`,body);
+    }
 }

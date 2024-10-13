@@ -1,0 +1,15 @@
+<ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <button ngbNavLink>Pokemons</button>
+    </li>
+    <li ngbNavItem>
+      <button ngbNavLink>Favorites</button>
+    </li>
+    <li ngbNavItem>
+        <button ngbNavLink>Teams</button>
+    </li>
+    <li ngbNavItem>
+        <button ngbNavLink>Battle</button>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>

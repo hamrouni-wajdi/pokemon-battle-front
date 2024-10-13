@@ -109,7 +109,6 @@ export class GameComponent {
       .getFactor(this.secondTeamPokemon.type, this.firstTeamPokemon.type)
       .subscribe((factor) => {
         this.secondTeamPokemon_factor = factor;
-
         let lifeAfterFight =
           this.secondTeamPokemon.life -
           this.firstTeamPokemon.power * this.secondTeamPokemon_factor;

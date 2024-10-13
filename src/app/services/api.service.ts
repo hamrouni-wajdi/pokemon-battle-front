@@ -18,7 +18,7 @@ export class ApiService {
     }
    
     public getBattleTeam(firstTeamName:string,secondTeamName:string):Observable<any>{
-      return this.http.post(`${this.baseUrl}/team/getPokemonsInBattle`,{firstTeamName,secondTeamName})
+      return this.http.post(`${this.baseUrl}/teams/getPokemonsInBattle`,{firstTeamName,secondTeamName})
     }
     public getFactor(type1:number,type2:number){
       let params = new HttpParams()

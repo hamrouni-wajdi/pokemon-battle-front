@@ -6,10 +6,11 @@ import { PokemonComponent } from '../pokemon/pokemon.component';
 import { Team } from '../types/team';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [PokemonListComponent, PokemonComponent, CommonModule],
+  imports: [PokemonListComponent, PokemonComponent, CommonModule,FormsModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
 })
@@ -19,6 +20,8 @@ export class GameComponent {
   round: number = 1;
   firstTeamPokemon_factor: any;
   secondTeamPokemon_factor: any;
+  firstTeamName:string="";
+  secondTeamName:string="";
   firstTeamPokemon: Pokemon = {
     name: '',
     image: '',
@@ -40,7 +43,10 @@ export class GameComponent {
 
   ngOnInit() {}
   ngAfterViewInit() {
-    this.creategame('Ashely', 'My Team');
+    // this.creategame('Wajdi', 'liko');
+  }
+  public confirmTeams(){
+    this.creategame(this.firstTeamName, this.secondTeamName);
   }
 
   public async creategame(firstTeamName: string, secondTeamName: string) {

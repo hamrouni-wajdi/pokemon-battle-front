@@ -1,3 +1,35 @@
+<div class="team-selection">
+    <div class="input-group input-group-md mb-3 team-name">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">First Team</span>
+        </div>
+        <input
+          [(ngModel)]="firstTeamName"
+          type="text"
+          class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Second team</span>
+          </div>
+        <input
+          [(ngModel)]="secondTeamName"
+          type="text"
+          class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+        <button
+          type="button"
+          (click)="confirmTeams()"
+          class="btn btn-primary submit-team"
+        >
+          Submit
+        </button>
+      </div>
+</div>
+
 <app-pokemon-list [pokemons]="firstTeam.pokemons" [teamName]="firstTeam.name"></app-pokemon-list>
 <div class="battlefield">
     <app-pokemon [pokemon]="firstTeamPokemon"></app-pokemon>

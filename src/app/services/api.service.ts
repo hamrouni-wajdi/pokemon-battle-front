@@ -26,4 +26,9 @@ export class ApiService {
       .set('type2', type2);
       return this.http.post(`${this.baseUrl}/game/factor`,{type1,type2})
     }
+    public updatePokemon(pokemonId:number,data:any){
+      // let params = new HttpParams()
+      // .set('id', pokemonId)
+      return this.http.post(`${this.baseUrl}/pokemons/${pokemonId}`,data)
+    }
 }

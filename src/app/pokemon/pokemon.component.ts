@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { Pokemon } from '../types/Pokemon';
 @Component({
   selector: 'app-pokemon',
   standalone: true,
@@ -9,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class PokemonComponent {
 
+ @Input()
+ pokemon!:Pokemon;
 }

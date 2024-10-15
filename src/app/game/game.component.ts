@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [PokemonListComponent, PokemonComponent, CommonModule,FormsModule],
+  imports: [PokemonListComponent, PokemonComponent, CommonModule, FormsModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',
 })
@@ -20,8 +20,12 @@ export class GameComponent {
   round: number = 1;
   firstTeamPokemon_factor: any;
   secondTeamPokemon_factor: any;
-  firstTeamName:string="";
-  secondTeamName:string="";
+  firstTeamName: string = '';
+  secondTeamName: string = '';
+  firstTeamDamage: number = 0;
+  secondTeamDamage: number = 0;
+  gameOver: boolean = false;
+  winner: string = '';
   firstTeamPokemon: Pokemon = {
     name: '',
     image: '',
@@ -45,7 +49,7 @@ export class GameComponent {
   ngAfterViewInit() {
     // this.creategame('Wajdi', 'liko');
   }
-  public confirmTeams(){
+  public confirmTeams() {
     this.creategame(this.firstTeamName, this.secondTeamName);
   }
 
@@ -89,38 +93,81 @@ export class GameComponent {
       return null;
     }
   }
-  private updateCurrentPokemonFirstTeam(){
+  private updateCurrentPokemonFirstTeam() {
     this.firstTeam.pokemons.shift();
-    this.firstTeamPokemon=this.firstTeam.pokemons[0];
-  } 
-  private updateCurrentPokemonSecondTeam(){
+    this.firstTeamPokemon = this.firstTeam.pokemons[0];
+  }
+  private updateCurrentPokemonSecondTeam() {
     this.secondTeam.pokemons.shift();
-    this.secondTeamPokemon=this.secondTeam.pokemons[0];
-  } 
+    this.secondTeamPokemon = this.secondTeam.pokemons[0];
+  }
+
+  private calucalteDamage(team: Team) {
+    if (team === this.firstTeam) {
+      return this.secondTeamPokemon.power * this.firstTeamPokemon_factor;
+    } else if (team === this.secondTeam) {
+      return this.firstTeamPokemon.power * this.secondTeamPokemon_factor;
+    }
+    console.error('error in calucalate damage');
+    throw new Error('error in calucalate damage');
+  }
 
   public async fight() {
-    await this.apiService
+    this.apiService
       .getFactor(this.firstTeamPokemon.type, this.secondTeamPokemon.type)
       .subscribe((factor) => {
         this.firstTeamPokemon_factor = factor;
-        console.log(this.firstTeamPokemon_factor);
-        let lifeafterFight =
-          this.firstTeamPokemon.life -
+        console.log('first factor  ', this.firstTeamPokemon_factor);
+        this.firstTeamDamage =
           this.secondTeamPokemon.power * this.firstTeamPokemon_factor;
-        lifeafterFight >= 0
-          ? (this.firstTeamPokemon.life = lifeafterFight)
-          : this.updateCurrentPokemonFirstTeam()
+
+        console.log(
+          'damage',
+          this.firstTeamDamage,
+          this.calucalteDamage(this.firstTeam)
+        );
+        console.log('frist team type', this.firstTeam.pokemons[0].type);
+        this.firstTeamPokemon.life =
+          this.firstTeamPokemon.life - this.calucalteDamage(this.firstTeam);
+
+        if (this.firstTeamPokemon.life <= 0) {
+          if (this.firstTeam.pokemons.length <= 1) {
+            console.log(this.firstTeam, ' first team looses');
+            console.log(this.firstTeamPokemon);
+            this.winner = this.secondTeamName;
+            this.gameOver = true;
+            return;
+          }
+          this.updateCurrentPokemonFirstTeam();
+        }
       });
-    await this.apiService
+    this.apiService
       .getFactor(this.secondTeamPokemon.type, this.firstTeamPokemon.type)
       .subscribe((factor) => {
         this.secondTeamPokemon_factor = factor;
-        let lifeAfterFight =
-          this.secondTeamPokemon.life -
+        console.log('second factor ', this.secondTeamPokemon_factor);
+        console.log('second team type', this.secondTeam.pokemons[0].type);
+
+        this.secondTeamPokemon.life =
+          this.secondTeamPokemon.life - this.calucalteDamage(this.secondTeam);
+
+        this.secondTeamDamage =
           this.firstTeamPokemon.power * this.secondTeamPokemon_factor;
-        lifeAfterFight >= 0
-          ? (this.secondTeamPokemon.life = lifeAfterFight)
-          : this.updateCurrentPokemonSecondTeam()
+        console.log(
+          'damage 2 ',
+          this.secondTeamDamage,
+          this.calucalteDamage(this.secondTeam)
+        );
+        if (this.secondTeamPokemon.life <= 0) {
+          if (this.secondTeam.pokemons.length <= 1) {
+            console.log(this.secondTeam, 'second team looses');
+            console.log(this.secondTeamPokemon);
+            this.winner = this.firstTeamName;
+            this.gameOver = true;
+            return;
+          }
+          this.updateCurrentPokemonSecondTeam();
+        }
       });
   }
 }

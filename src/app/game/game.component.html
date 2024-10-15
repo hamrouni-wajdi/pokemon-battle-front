@@ -36,12 +36,18 @@
   [pokemons]="firstTeam.pokemons"
   [teamName]="firstTeam.name"
 ></app-pokemon-list>
-<div class="battlefield">
+<div class="battlefield" *ngIf="!gameOver">
   <app-pokemon [pokemon]="firstTeamPokemon"></app-pokemon>
   <button type="button" class="alert alert-danger fight-btn" (click)="fight()">
     Fight
   </button>
   <app-pokemon [pokemon]="secondTeamPokemon"></app-pokemon>
+</div>
+<div class="battlefield" *ngIf="gameOver">
+  <div class="battle-result-wrapper">
+    <h1>Game Over !</h1>
+    <h1>{{ winner }} Wins !</h1>
+  </div>
 </div>
 <app-pokemon-list
   [pokemons]="secondTeam.pokemons"

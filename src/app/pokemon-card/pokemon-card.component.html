@@ -7,7 +7,7 @@
         <span class="life"> Life:{{pokemon.life}} </span>
         <span class="power">Power:{{pokemon.power}} </span>
        </span>     
-      <a href="#" class="btn btn-primary">Add to favorite</a>
+      <a  href="#" class="btn btn-primary">{{!isFavorite?"Add To Favorites":"Remove from Favorites"}}</a>
       <a href="#" class="btn btn-primary" (click)="toggleForm()">{{editButtonText}}</a>
     </div>
     <form [formGroup]="myForm" class="input-group" *ngIf="displayForm" (ngSubmit)="onEdit($event)">

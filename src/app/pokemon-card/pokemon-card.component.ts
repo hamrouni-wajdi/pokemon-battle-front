@@ -20,6 +20,8 @@ export class PokemonCardComponent {
   @Input()
   pokemon!:Pokemon;
 
+  @Input()
+  isFavorite:boolean=false;
   ngOnInit() {
     this.myForm = this.fb.group({
       type: [this.parsetype(this.pokemon.type)],

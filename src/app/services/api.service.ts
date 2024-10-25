@@ -37,4 +37,7 @@ export class ApiService {
     public createTeam(body:object){
       return this.http.post(`${this.baseUrl}/teams/populate`,body);
     }
+    public getFavoritePokemons(){
+      return this.http.get<any>(`${this.baseUrl}/pokemons/favorites`)
+    }
 }

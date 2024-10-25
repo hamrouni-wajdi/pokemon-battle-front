@@ -40,4 +40,10 @@ export class ApiService {
     public getFavoritePokemons(){
       return this.http.get<any>(`${this.baseUrl}/pokemons/favorites`)
     }
+    public addToFavorites(pokemonId:number){
+      return this.http.post<any>(`${this.baseUrl}/pokemons/${pokemonId}/favorites`,{})
+    }
+    public removeFromFavorites(pokemonId:number){
+      return this.http.delete<any>(`${this.baseUrl}/pokemons/${pokemonId}/favorites`)
+    }
 }

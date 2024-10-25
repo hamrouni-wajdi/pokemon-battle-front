@@ -69,4 +69,15 @@ export class PokemonCardComponent {
     }
     return undefined;
   }
+  handleFavoritePokemon(){
+    console.log("pokemon id",this.pokemon.id);
+    if(this.isFavorite){
+      this.apiService.removeFromFavorites(this.pokemon.id).subscribe((data)=>{
+        console.log(data)
+      })
+    }
+    this.apiService.addToFavorites(this.pokemon.id).subscribe((data)=>{
+      console.log(data)
+    })
+  }
 }

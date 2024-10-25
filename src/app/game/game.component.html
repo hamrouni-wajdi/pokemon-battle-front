@@ -1,15 +1,17 @@
 <div class="team-selection">
-  <div class="input-group input-group-md mb-3 team-name">
+  <div class="input-group input-group-md mb-3 team-name-container">
     <div class="input-group-prepend">
       <span class="input-group-text" id="inputGroup-sizing-sm">First Team</span>
     </div>
-    <input
+    <select
+      class="form-select"
+      aria-label="Default select example"
       [(ngModel)]="firstTeamName"
-      type="text"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-sm"
-    />
+    >
+      <option *ngFor="let team of teams" value="{{ team.team_name }}">
+        {{ team.team_name }}
+      </option>
+    </select>
     <button
       type="button"
       (click)="confirmTeams()"
@@ -17,39 +19,51 @@
     >
       Confirm
     </button>
-    <input
+    <select
+      class="form-select"
+      aria-label="Default select example"
       [(ngModel)]="secondTeamName"
-      type="text"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-sm"
-    />
+    >
+      <option *ngFor="let team of teams" value="{{ team.team_name }}">
+        {{ team.team_name }}
+      </option>
+    </select>
     <div class="input-group-append">
       <span class="input-group-text" id="inputGroup-sizing-sm"
         >Second team</span
       >
     </div>
   </div>
-</div>
+  <div class="battlefield-container">
+    <div class="pokemon-list-container">
+      <app-pokemon-list
+        [pokemons]="firstTeam.pokemons"
+        [teamName]="firstTeam.name"
+      ></app-pokemon-list>
+    </div>
+    <div class="battlefield" *ngIf="!gameOver">
+      <app-pokemon [pokemon]="firstTeamPokemon"></app-pokemon>
+      <button
+        type="button"
+        class="alert alert-danger fight-btn"
+        (click)="fight()"
+      >
+        Fight
+      </button>
+      <app-pokemon [pokemon]="secondTeamPokemon"></app-pokemon>
+    </div>
+    <div class="battlefield" *ngIf="gameOver">
+      <div class="battle-result-wrapper">
+        <h1>Game Over !</h1>
+        <h1>{{ winner }} Wins !</h1>
+      </div>
+    </div>
 
-<app-pokemon-list
-  [pokemons]="firstTeam.pokemons"
-  [teamName]="firstTeam.name"
-></app-pokemon-list>
-<div class="battlefield" *ngIf="!gameOver">
-  <app-pokemon [pokemon]="firstTeamPokemon"></app-pokemon>
-  <button type="button" class="alert alert-danger fight-btn" (click)="fight()">
-    Fight
-  </button>
-  <app-pokemon [pokemon]="secondTeamPokemon"></app-pokemon>
-</div>
-<div class="battlefield" *ngIf="gameOver">
-  <div class="battle-result-wrapper">
-    <h1>Game Over !</h1>
-    <h1>{{ winner }} Wins !</h1>
+    <div class="pokemon-list-container">
+      <app-pokemon-list
+        [pokemons]="secondTeam.pokemons"
+        [teamName]="secondTeam.name"
+      ></app-pokemon-list>
+    </div>
   </div>
 </div>
-<app-pokemon-list
-  [pokemons]="secondTeam.pokemons"
-  [teamName]="secondTeam.name"
-></app-pokemon-list>

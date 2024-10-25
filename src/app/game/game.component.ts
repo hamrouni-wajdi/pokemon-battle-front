@@ -26,6 +26,8 @@ export class GameComponent {
   secondTeamDamage: number = 0;
   gameOver: boolean = false;
   winner: string = '';
+  startBattle:boolean=false
+  teams:Team[]=[]
   firstTeamPokemon: Pokemon = {
     name: '',
     image: '',
@@ -45,7 +47,15 @@ export class GameComponent {
 
   constructor(private apiService: ApiService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  this.apiService.getTeamsOrderedByPower().subscribe({
+    next:(response)=>{
+      this.teams=response.teams
+    console.log(this.teams)
+    },
+    error:(err)=>console.log(err)
+  })
+  }
   ngAfterViewInit() {
     // this.creategame('Wajdi', 'liko');
   }

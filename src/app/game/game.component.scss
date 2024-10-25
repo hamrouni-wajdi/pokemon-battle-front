@@ -1,11 +1,18 @@
 .battlefield{
     display: flex;
     flex-direction: row;
-    width: 80vw;
+    width: 60vw;
     margin: auto;
     justify-content: space-between;
     background-color: beige;
     min-height: 250px;
+}
+.battlfield-container{
+    margin-right: 20vw;
+    width: 90vw;
+    border: 1px solid red;
+    min-height: 300px;
+    
 }
 .fight-btn{
     width: 150px;
@@ -16,8 +23,9 @@
     font-size: large;
 }
 .team-selection{
-    width: 60vw;
+    width: 80vw;
     margin: auto;
+  
 }
 button{
     margin-left: 10px;
@@ -28,5 +36,13 @@ button{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+.team-name-container{
+    display: flex;
+    justify-content: center;
+}
+
+.battlefield-container{
+    width: 80vw;
 }
 
